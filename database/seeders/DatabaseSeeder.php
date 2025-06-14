@@ -26,6 +26,6 @@ class DatabaseSeeder extends Seeder
         }
 
         // Example projects
-        Project::factory(10)->create();
+        Project::factory(200)->create();
     }
 }
