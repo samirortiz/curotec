@@ -67,14 +67,16 @@
     <script>
         $(document).ready(function() {
             $('#sortable a').on('click', function() {
+                $(this).parent().parent().find('i:first').removeClass('bi-caret-up');
+                $(this).parent().parent().find('i:first').removeClass('bi-caret-down');
                 let sortField = $(this).html().toLowerCase();
                 if ($(this).attr('class') == '' || $(this).attr('class') == 'asc') {
                     $(this).attr('class', 'desc');
-                    $(this).parent().find('i').removeClass('bi-caret-up');
+                    $(this).parent().parent().find('i').removeClass('bi-caret-up');
                     $(this).parent().find('i').addClass('bi-caret-down');
                 } else {
                     $(this).attr('class', 'asc');
-                    $(this).parent().find('i').removeClass('bi-caret-down');
+                    $(this).parent().parent().find('i').removeClass('bi-caret-down');
                     $(this).parent().find('i').addClass('bi-caret-up');
                 }
                 let sortDirection = $(this).attr('class');
@@ -111,6 +113,10 @@
 
             let html;
             $('#filter').on('keyup', function() {
+                $('#projects-table').find('i').removeClass('bi-caret-down')
+                $('#projects-table').find('i').removeClass('bi-caret-up')
+                $('#projects-table').find('i:first').addClass('bi-caret-up')
+
                 let filter = $(this).val();
                 $.ajax({
                     url: '/api/projects', //
