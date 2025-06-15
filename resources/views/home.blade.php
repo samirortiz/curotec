@@ -19,10 +19,15 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                 </div>
                 <div class="card">
                     <div class="card-header">{{ __('Projects') }}
-                        <button onclick="window.location.href='{{ route('projects.create') }}'" class="btn btn-primary" style="float: right;">
+                        <button onclick="window.location.href='{{ route('create-project') }}'" class="btn btn-primary" style="float: right;">
                             Create project
                         </button>
                     </div>
@@ -52,9 +57,12 @@
                                         <td>{{$project->status}}</td>
                                         <td>{{$project->priority}}</td>
                                         <td>
-                                            <a href="#"><i class="bi bi-pencil"></i></a>
-                                            &nbsp;
-                                            <a href="#"><i class="bi bi-trash"></i></a>
+                                            <button><a href="{{ route('edit-project', [$project->id]) }}"><i class="bi bi-pencil"></i></a></button>
+                                            <form action="{{ route('destroy-project', [$project->id]) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"><i class="bi bi-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @empty
@@ -111,9 +119,12 @@
                                         '<td>'+item.status+'</td>' +
                                         '<td>'+item.priority+'</td>' +
                                         '<td>' +
-                                            '<a href="#"><i class="bi bi-pencil"></i></a>' +
-                                            '&nbsp;' +
-                                            '<a href="#"><i class="bi bi-trash"></i></a>' +
+                                            '<button><a href="/projects/edit/'+item.id+'"><i class="bi bi-pencil"></i></a></button>' +
+                                            '<form action="/projects/destroy/'+item.id+'" method="POST">' +
+                                                '@csrf' +
+                                                '@method("DELETE")' +
+                                                '<button type="submit"><i class="bi bi-trash"></i></button>' +
+                                            '</form>' +
                                         '</td>' +
                                     '</tr>';
                             html = html + row;
@@ -138,7 +149,7 @@
                     data: {
                         filter: filter,
                         sortBy: 'id',
-                        sortDirection: 'asc'
+                        sortDirection: 'desc'
                     },
                     success: function(data) {
                         html = '';
@@ -151,9 +162,12 @@
                                         '<td>'+item.status+'</td>' +
                                         '<td>'+item.priority+'</td>' +
                                         '<td>' +
-                                            '<a href="#"><i class="bi bi-pencil"></i></a>' +
-                                            '&nbsp;' +
-                                            '<a href="#"><i class="bi bi-trash"></i></a>' +
+                                            '<button><a href="/projects/edit/'+item.id+'"><i class="bi bi-pencil"></i></a></button>' +
+                                            '<form action="/projects/destroy/'+item.id+'" method="POST">' +
+                                                '@csrf' +
+                                                '@method("DELETE")' +
+                                                '<button type="submit"><i class="bi bi-trash"></i></button>' +
+                                            '</form>' +
                                         '</td>' +
                                     '</tr>';
                             html = html + row;
