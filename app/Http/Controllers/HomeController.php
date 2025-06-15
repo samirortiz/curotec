@@ -22,8 +22,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request, ProjectService $projectService)
+    public function index(ProjectService $projectService)
     {
-        return view('home', ['projects' => $projectService->list($request->filter)]);
+        return view('home', ['projects' => $projectService->list('', 'id', 'desc')]);
     }
 }

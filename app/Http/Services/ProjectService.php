@@ -2,28 +2,47 @@
 
 namespace App\Http\Services;
 
-use App\Http\Resources\ProjectCollection;
 use App\Models\Project;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class ProjectService {
 
-    public function list(?string $filter, ?string $sortBy = 'id', ?string $sortDirection = 'asc'): ProjectCollection
+
+    /* List projects */
+
+    public function list(?string $filter, ?string $sortBy, ?string $sortDirection)
     {
-        $records = Project::query()
-            ->when($filter, function($query) use ($filter) {
-                $query->where('name', 'like', '%'.$filter.'%')
-                    ->orWhere('description', 'like', '%'.$filter.'%');
-            })
-            ->orderBy($sortBy, $sortDirection)->simplePaginate(10);
+        try {
+            $query = Project::query()
+                ->when($filter, function($query) use ($filter) {
+                    $query->where('name', 'like', '%'.$filter.'%')
+                        ->orWhere('description', 'like', '%'.$filter.'%');
+                })
+                ->orderBy($sortBy, $sortDirection);
 
-        $records->appends(['filter' => $filter, 'sortBy' => $sortBy, 'sortDirection' => $sortDirection]);
+                if ($filter) {
+                    $records = $query->get();
+                 } else {
+                    $records = $query->simplePaginate(10);
+                    $records->appends(['sortBy' => $sortBy, 'sortDirection' => $sortDirection]);
+                 }
 
-        return new ProjectCollection($records);
+            return $records;
+        } catch (\Throwable $th) {
+            Log::info($th->getMessage());
+            throw new Exception($th->getMessage(), 422);
+        }
     }
 
-    public function store(array $projectData): Project
+    /* Store project */
+    public function store(array $project): Project
     {
-
+        try {
+            return Project::create($project);
+        } catch (\Throwable $th) {
+            throw new Exception($th->getMessage(), 422);
+        }
     }
 
 }

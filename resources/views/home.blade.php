@@ -2,27 +2,29 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+        {{-- <div class="row justify-content-center">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">{{ __('Dashboard') }}
-                    </div>
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
                     </div>
                 </div>
             </div>
         </div>
-        <br>
+        <br> --}}
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                </div>
                 <div class="card">
                     <div class="card-header">{{ __('Projects') }}
-                        <button style="float:right">Create project</button>
+                        <button onclick="window.location.href='{{ route('projects.create') }}'" class="btn btn-primary" style="float: right;">
+                            Create project
+                        </button>
                     </div>
                     <div class="card-header">
                         <label for="filter">Filter by name or description</label>
@@ -38,6 +40,7 @@
                                     <th scope="col"><i class="bi"></i><a href="#">Description</a></th>
                                     <th scope="col" width="100"><i class="bi"></i><a href="#">Status</a></th>
                                     <th scope="col" width="100"><i class="bi"></i><a href="#">Priority</a></th>
+                                    <th scope="col">Actions</a>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,6 +51,11 @@
                                         <td>{{$project->description}}</td>
                                         <td>{{$project->status}}</td>
                                         <td>{{$project->priority}}</td>
+                                        <td>
+                                            <a href="#"><i class="bi bi-pencil"></i></a>
+                                            &nbsp;
+                                            <a href="#"><i class="bi bi-trash"></i></a>
+                                        </td>
                                     </tr>
                                 @empty
                                     Nothing to show here...
@@ -102,6 +110,11 @@
                                         '<td>'+item.description+'</td>' +
                                         '<td>'+item.status+'</td>' +
                                         '<td>'+item.priority+'</td>' +
+                                        '<td>' +
+                                            '<a href="#"><i class="bi bi-pencil"></i></a>' +
+                                            '&nbsp;' +
+                                            '<a href="#"><i class="bi bi-trash"></i></a>' +
+                                        '</td>' +
                                     '</tr>';
                             html = html + row;
                         });
@@ -110,12 +123,13 @@
                 });
             });
 
-
             let html;
             $('#filter').on('keyup', function() {
                 $('#projects-table').find('i').removeClass('bi-caret-down')
                 $('#projects-table').find('i').removeClass('bi-caret-up')
                 $('#projects-table').find('i:first').addClass('bi-caret-up')
+
+                $(this).val() != '' ? $('nav[role="navigation"]').fadeOut() : $('nav[role="navigation"]').fadeIn();
 
                 let filter = $(this).val();
                 $.ajax({
@@ -136,6 +150,11 @@
                                         '<td>'+item.description+'</td>' +
                                         '<td>'+item.status+'</td>' +
                                         '<td>'+item.priority+'</td>' +
+                                        '<td>' +
+                                            '<a href="#"><i class="bi bi-pencil"></i></a>' +
+                                            '&nbsp;' +
+                                            '<a href="#"><i class="bi bi-trash"></i></a>' +
+                                        '</td>' +
                                     '</tr>';
                             html = html + row;
                         });
