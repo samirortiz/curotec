@@ -23,6 +23,6 @@ class HomeController extends Controller
      */
     public function index(ProjectService $projectService)
     {
-        return view('home', ['projects' => $projectService->list('', 'id', 'desc')]);
+        return view('home', ['projects' => $projectService->list('', 'id', 'desc'), 'stats' => $projectService->dashboardInfo()]);
     }
 }

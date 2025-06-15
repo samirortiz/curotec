@@ -86,4 +86,22 @@ class ProjectService {
         }
     }
 
+    /* Dashboard informations */
+    public function dashboardInfo(): array
+    {
+        $data['statusCount'] = Project::select('status')
+            ->selectRaw('count(*) as total')
+            ->groupBy('status')
+            ->orderBy('status', 'desc')
+            ->pluck('status', 'total');
+
+        $data['priorityCount'] = Project::select('priority')
+            ->selectRaw('count(*) as total')
+            ->groupBy('priority')
+            ->orderBy('priority','asc')
+            ->pluck('priority', 'total');
+
+        return $data;
+    }
+
 }
