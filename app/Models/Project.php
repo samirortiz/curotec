@@ -11,6 +11,8 @@ class Project extends Model
 
     protected $fillable = ['name', 'description', 'status', 'priority'];
 
+    const CACHE_KEY = 'projects_';
+
     // Acessor
     public function getStatusAttribute($value)
     {
