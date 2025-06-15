@@ -82,12 +82,12 @@
                                         <td>{{$project->priority}}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <button class="btn btn-default"><a href="{{ route('show-project', [$project->id]) }}"><i class="bi bi-eye"></i></a></button>
-                                                <button class="btn"><a href="{{ route('edit-project', [$project->id]) }}"><i class="bi bi-pencil"></i></a></button>
+                                                <button class="btn" title="Show"><a href="{{ route('show-project', [$project->id]) }}"><i class="bi bi-eye"></i></a></button>
+                                                <button class="btn" title="Edit"><a href="{{ route('edit-project', [$project->id]) }}"><i class="bi bi-pencil"></i></a></button>
                                                 <form action="{{ route('destroy-project', [$project->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn" type="submit"><i class="bi bi-trash"></i></button>
+                                                    <button class="btn" type="submit" title="Delete"><i class="bi bi-trash"></i></button>
                                                 </form>
                                             </div>
 
@@ -148,12 +148,12 @@
                                         '<td>'+item.priority+'</td>' +
                                         '<td>' +
                                             '<div class="btn-group">' +
-                                                '<button class="btn"><a href="/projects/show/'+item.id+'"><i class="bi bi-eye"></i></a></button>' +
-                                                '<button class="btn"><a href="/projects/edit/'+item.id+'"><i class="bi bi-pencil"></i></a></button>' +
+                                                '<button class="btn" title="Show"><a href="/projects/show/'+item.id+'"><i class="bi bi-eye"></i></a></button>' +
+                                                '<button class="btn" title="Edit"><a href="/projects/edit/'+item.id+'"><i class="bi bi-pencil"></i></a></button>' +
                                                 '<form action="/projects/destroy/'+item.id+'" method="POST">' +
                                                     '@csrf' +
                                                     '@method("DELETE")' +
-                                                    '<button class="btn" type="submit"><i class="bi bi-trash"></i></button>' +
+                                                    '<button class="btn" type="submit" title="Delete"><i class="bi bi-trash"></i></button>' +
                                                 '</form>' +
                                             '</div>' +
                                         '</td>' +
@@ -194,12 +194,12 @@
                                         '<td>'+item.priority+'</td>' +
                                         '<td>' +
                                             '<div class="btn-group">' +
-                                                '<button class="btn"><a href="/projects/show/'+item.id+'"><i class="bi bi-eye"></i></a></button>' +
-                                                '<button class="btn"><a href="/projects/edit/'+item.id+'"><i class="bi bi-pencil"></i></a></button>' +
+                                                '<button class="btn" title="Show"><a href="/projects/show/'+item.id+'"><i class="bi bi-eye"></i></a></button>' +
+                                                '<button class="btn" title="Edit"><a href="/projects/edit/'+item.id+'"><i class="bi bi-pencil"></i></a></button>' +
                                                 '<form action="/projects/destroy/'+item.id+'" method="POST">' +
                                                     '@csrf' +
                                                     '@method("DELETE")' +
-                                                    '<button type="submit"><i class="bi bi-trash"></i></button>' +
+                                                    '<button class="btn" type="submit" title="Delete"><i class="bi bi-trash"></i></button>' +
                                                 '</form>' +
                                             '</div>' +
                                         '</td>' +
