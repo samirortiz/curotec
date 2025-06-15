@@ -27,8 +27,13 @@
                             @csrf
                             @method('PUT')
                             <div class="form-group">
+                                <label for="projectId">Project ID</label>
+                                <span class="form-control" id="projectId">{{ $project->id }}</span>
+                            </div>
+                            <br>
+                            <div class="form-group">
                                 <label for="projectName">Project name</label>
-                                <input type="text" class="form-control" id="projectName" aria-describedby="emailHelp" placeholder="Enter project name" name="name" value="{{ $project->name }}">
+                                <input type="text" class="form-control" id="projectName" placeholder="Enter project name" name="name" value="{{ $project->name }}">
                             </div>
                             <br>
                             <div class="form-group">

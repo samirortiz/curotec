@@ -47,7 +47,11 @@ class ProjectApiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            return new ProjectResource($this->projectService->show($id));
+        } catch (\Throwable $th) {
+            return response()->json(['success' => false, 'message' => $th->getMessage()], 422);
+        }
     }
 
     /**

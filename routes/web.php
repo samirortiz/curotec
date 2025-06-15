@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Forms
+Route::get('/projects/show/{project}', [App\Http\Controllers\ProjectController::class, 'show'])->name('show-project');
 Route::get('/projects/create', [App\Http\Controllers\ProjectController::class, 'create'])->name('create-project');
 Route::get('/projects/edit/{project}', [App\Http\Controllers\ProjectController::class, 'edit'])->name('edit-project');
 

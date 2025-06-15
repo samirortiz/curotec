@@ -66,4 +66,14 @@ class ProjectService {
         }
     }
 
+    /* Show project */
+    public function show(string $id): Project
+    {
+        try {
+            return Project::find($id);
+        } catch (\Throwable $th) {
+            throw new Exception($th->getMessage(), 422);
+        }
+    }
+
 }
