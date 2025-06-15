@@ -4,7 +4,6 @@ namespace App\Http\Services;
 
 use App\Models\Project;
 use Exception;
-use GuzzleHttp\Handler\Proxy;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
