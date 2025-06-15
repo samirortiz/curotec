@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FilterProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
+use App\Http\Resources\ErrorResource;
 use App\Http\Resources\ProjectCollection;
 use App\Http\Resources\ProjectResource;
 use App\Http\Services\ProjectService;
-use Illuminate\Http\Request;
 
 class ProjectApiController extends Controller
 {
@@ -26,7 +26,7 @@ class ProjectApiController extends Controller
         try {
             return new ProjectCollection($this->projectService->list($request->filter, $request->sortBy, $request->sortDirection));
         } catch (\Throwable $th) {
-            return response()->json(['success' => false, 'message' => $th->getMessage()], 422);
+            return new ErrorResource(['message' => $th->getMessage()]);
         }
     }
 
@@ -38,7 +38,7 @@ class ProjectApiController extends Controller
         try {
             return new ProjectResource($this->projectService->store($request->validated()));
         } catch (\Throwable $th) {
-            return response()->json(['success' => false, 'message' => $th->getMessage()], 422);
+            return new ErrorResource(['message' => $th->getMessage()]);
         }
     }
 
@@ -50,7 +50,7 @@ class ProjectApiController extends Controller
         try {
             return new ProjectResource($this->projectService->show($id));
         } catch (\Throwable $th) {
-            return response()->json(['success' => false, 'message' => $th->getMessage()], 422);
+            return new ErrorResource(['message' => $th->getMessage()]);
         }
     }
 
@@ -62,7 +62,7 @@ class ProjectApiController extends Controller
         try {
             return new ProjectResource($this->projectService->update($request->validated(), $id));
         } catch (\Throwable $th) {
-            return response()->json(['success' => false, 'message' => $th->getMessage()], 422);
+            return new ErrorResource(['message' => $th->getMessage()]);
         }
     }
 
@@ -76,7 +76,7 @@ class ProjectApiController extends Controller
                 return response()->json(['success' => true]);
             }
         } catch (\Throwable $th) {
-            return response()->json(['success' => false, 'message' => $th->getMessage()], 422);
+            return new ErrorResource(['message' => $th->getMessage()]);
         }
     }
 }

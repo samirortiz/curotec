@@ -4,9 +4,24 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceResponse;
 
-class ProjectResource extends JsonResource
+class ErrorResource extends JsonResource
 {
+    public $statusCode;
+    public static $wrap = 'errors';
+
+    public function __construct($resource, $statusCode = 422)
+    {
+        parent::__construct($resource);
+        $this->statusCode = $statusCode;
+    }
+
+    public function toResponse($request)
+    {
+        return (new ResourceResponse($this))->toResponse($request)->setStatusCode($this->statusCode);
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -25,7 +40,7 @@ class ProjectResource extends JsonResource
     public function with(Request $request): array
     {
         return [
-            'success' => true
+            'success' => false
         ];
     }
 }
