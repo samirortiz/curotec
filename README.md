@@ -15,3 +15,6 @@ and create your own
 
 # Testing
 docker exec -it laravel-app /bin/bash -c "./vendor/bin/pest"
+
+# API documentation
+https://documenter.getpostman.com/view/3547764/2sB2x8FWuV
