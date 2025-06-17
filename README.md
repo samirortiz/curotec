@@ -18,3 +18,7 @@ docker exec -it laravel-app /bin/bash -c "./vendor/bin/pest"
 
 # API documentation
 https://documenter.getpostman.com/view/3547764/2sB2x8FWuV
+
+# Search project by Artisan command
+docker exec -it laravel-app /bin/bash -c "php artisan app:search-projects"
+ 
